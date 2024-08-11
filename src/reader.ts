@@ -1,8 +1,6 @@
 import readXlsxFile from "read-excel-file/node";
 import { ParseWithoutSchemaOptions, Row } from "read-excel-file/types";
 
-const filePath: string = "./data/PSGC-2Q-2024-Summary-of-Changes.xlsx";
-
 enum Index {
     name,
     type,
@@ -13,12 +11,20 @@ enum Index {
 }
 
 const reader = {
-    read: async () => {
+    /**
+     * Reads a Summary of Changes file and gets its contents divided by release dates
+     * @param filePath Path to the Summary of Changes file
+     * @param sheetName Sheet name (default: 2001-present)
+     */
+    read: async (filePath: string, sheetName = "2001-present") => {
         const options: ParseWithoutSchemaOptions = {
-            sheet: "2001-present",
+            sheet: sheetName,
         };
         const rows = await readXlsxFile(filePath, options);
+
+        // Remove the initial rows
         rows.splice(0, 5);
+
         const noUpdates: string[] = [];
         const releases: string[] = [];
         const changes: Record<string, Row[]> = {};
@@ -57,38 +63,7 @@ const reader = {
             }
             previousRow = row;
         }
-
-        console.log(noUpdates);
-        console.log(releases);
-        console.log(
-            "October - December 2004 Updates",
-            changes["October - December 2004 Updates"].map(
-                (row) => row[Index.name]
-            )
-        );
-        console.log(
-            "July - September 2005 Updates",
-            changes["July - September 2005 Updates"].map(
-                (row) => row[Index.name]
-            )
-        );
-        console.log(
-            "January - March 2006 Updates",
-            changes["January - March 2006 Updates"].map(
-                (row) => row[Index.name]
-            )
-        );
-        console.log(
-            "July - September 2006 Updates",
-            changes["July - September 2006 Updates"].map(
-                (row) => row[Index.name]
-            )
-        );
-        console.log(
-            "January to March 2024",
-            changes["January to March 2024"].map((row) => row[Index.name])
-        );
     },
 };
 
-reader.read();
+reader.read("./data/PSGC-2Q-2024-Summary-of-Changes.xlsx");

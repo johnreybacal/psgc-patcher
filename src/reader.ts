@@ -125,6 +125,15 @@ reader.read("./data/PSGC-2Q-2024-Summary-of-Changes.xlsx").then((reader) => {
     console.log(
         reader.getChangesFrom("April 2024").map((row) => row[Index.name])
     );
+
+    const types: Set<string> = new Set(
+        reader
+            .getChangesFrom("January - March 2001 Updates")
+            .map((row) => row[Index.type]?.toString())
+            .sort((a, b) => a.localeCompare(b))
+    );
+
+    console.log(types);
 });
 
 // reader

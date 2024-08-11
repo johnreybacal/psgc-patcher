@@ -1,0 +1,19 @@
+{
+    "name": "psgc-patcher",
+    "version": "0.0.0",
+    "description": "Apply PSGC changes",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Johnrey Bacal",
+    "license": "ISC",
+    "dependencies": {
+        "read-excel-file": "^5.8.4"
+    },
+    "devDependencies": {
+        "@types/node": "^20.14.10",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.3"
+    }
+}

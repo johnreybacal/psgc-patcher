@@ -10,13 +10,18 @@ enum Index {
     description,
 }
 
-const reader = {
+class Reader {
+    /**
+     * Summary of Changes grouped into release dates
+     */
+    changes: Record<string, Row[]>;
+
     /**
      * Reads a Summary of Changes file and gets its contents divided by release dates
      * @param filePath Path to the Summary of Changes file
      * @param sheetName Sheet name (default: 2001-present)
      */
-    read: async (filePath: string, sheetName = "2001-present") => {
+    async read(filePath: string, sheetName = "2001-present") {
         const options: ParseWithoutSchemaOptions = {
             sheet: sheetName,
         };
@@ -25,9 +30,11 @@ const reader = {
         // Remove the initial rows
         rows.splice(0, 5);
 
+        this.changes = {};
+        const changes = this.changes;
+
         const noUpdates: string[] = [];
         const releases: string[] = [];
-        const changes: Record<string, Row[]> = {};
         let previousRow: Row;
         let release;
 
@@ -63,7 +70,33 @@ const reader = {
             }
             previousRow = row;
         }
-    },
-};
 
-reader.read("./data/PSGC-2Q-2024-Summary-of-Changes.xlsx");
+        return changes;
+    }
+}
+
+const reader = new Reader();
+const changes = reader.read("./data/PSGC-2Q-2024-Summary-of-Changes.xlsx");
+
+changes.then((changes) => {
+    console.log(
+        "October - December 2004 Updates",
+        changes["October - December 2004 Updates"].map((row) => row[Index.name])
+    );
+    console.log(
+        "July - September 2005 Updates",
+        changes["July - September 2005 Updates"].map((row) => row[Index.name])
+    );
+    console.log(
+        "January - March 2006 Updates",
+        changes["January - March 2006 Updates"].map((row) => row[Index.name])
+    );
+    console.log(
+        "July - September 2006 Updates",
+        changes["July - September 2006 Updates"].map((row) => row[Index.name])
+    );
+    console.log(
+        "January to March 2024",
+        changes["January to March 2024"].map((row) => row[Index.name])
+    );
+});

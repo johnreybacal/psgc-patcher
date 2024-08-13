@@ -40,3 +40,11 @@ const actions = [
     "Unit Type",
     undefined,
 ];
+
+const rename = [
+    "Renaming",
+    "Renaming of barangays",
+    "Renaming of municipality",
+];
+
+export { rename };

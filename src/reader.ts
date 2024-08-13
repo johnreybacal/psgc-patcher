@@ -1,20 +1,12 @@
 import readXlsxFile from "read-excel-file/node";
-import { ParseWithoutSchemaOptions, Row } from "read-excel-file/types";
+import { ParseWithoutSchemaOptions } from "read-excel-file/types";
+import { Entry, Index, Row } from "./types";
 
-enum Index {
-    name,
-    type,
-    newCode,
-    motherUnitOldName,
-    oldCode,
-    description,
-}
-
-class Reader {
+export class Reader {
     /**
      * Summary of Changes grouped into release dates
      */
-    changes: Record<string, Row[]>;
+    changes: Record<string, Entry[]>;
 
     /**
      * Reads a Summary of Changes file and gets its contents divided by release dates
@@ -66,7 +58,15 @@ class Reader {
                 changes[release] = [];
             } else {
                 // Null safety because first row will go here
-                changes[release]?.push(row);
+                const entry: Entry = {
+                    name: row[Index.name] as string,
+                    type: row[Index.type] as string,
+                    newCode: row[Index.newCode] as string,
+                    motherUnitOldName: row[Index.motherUnitOldName] as string,
+                    oldCode: row[Index.oldCode] as string,
+                    description: row[Index.description] as string,
+                };
+                changes[release]?.push(entry);
             }
             previousRow = row;
         }
@@ -82,7 +82,7 @@ class Reader {
      */
     getChangesFrom(from: string, to?: string) {
         const releases = Object.keys(this.changes);
-        const changes: Row[] = [];
+        const changes: Entry[] = [];
 
         let isInRange = false;
         for (const release of releases) {
@@ -102,69 +102,3 @@ class Reader {
         return changes;
     }
 }
-
-const reader = new Reader();
-
-reader.read("./data/PSGC-2Q-2024-Summary-of-Changes.xlsx").then((reader) => {
-    console.log(
-        reader
-            .getChangesFrom(
-                "October - December 2004 Updates",
-                "July - September 2005 Updates"
-            )
-            .map((row) => row[Index.name])
-    );
-    console.log(
-        reader
-            .getChangesFrom(
-                "July - September 2019 Updates",
-                "January - March 2020"
-            )
-            .map((row) => row[Index.name])
-    );
-    console.log(
-        reader.getChangesFrom("April 2024").map((row) => row[Index.name])
-    );
-
-    const types: Set<string> = new Set(
-        reader
-            .getChangesFrom("January - March 2001 Updates")
-            .map((row) => row[Index.type]?.toString())
-            .sort((a, b) => a.localeCompare(b))
-    );
-
-    console.log(types);
-});
-
-// reader
-//     .read("./data/PSGC-2Q-2024-Summary-of-Changes.xlsx")
-//     .then(({ changes }) => {
-//         console.log(
-//             "October - December 2004 Updates",
-//             changes["October - December 2004 Updates"].map(
-//                 (row) => row[Index.name]
-//             )
-//         );
-//         console.log(
-//             "July - September 2005 Updates",
-//             changes["July - September 2005 Updates"].map(
-//                 (row) => row[Index.name]
-//             )
-//         );
-//         console.log(
-//             "January - March 2006 Updates",
-//             changes["January - March 2006 Updates"].map(
-//                 (row) => row[Index.name]
-//             )
-//         );
-//         console.log(
-//             "July - September 2006 Updates",
-//             changes["July - September 2006 Updates"].map(
-//                 (row) => row[Index.name]
-//             )
-//         );
-//         console.log(
-//             "January to March 2024",
-//             changes["January to March 2024"].map((row) => row[Index.name])
-//         );
-//     });

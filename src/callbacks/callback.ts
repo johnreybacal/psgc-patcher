@@ -1,6 +1,32 @@
+import { Definition } from "./definition";
+
 export interface Callback<T> {
+    /**
+     * Model that interacts with the database
+     */
     model: T;
-    setModel(model: T);
+    /**
+     * Definition of structure
+     */
+    definition: Definition;
+
+    /**
+     * Set model and definition
+     * @param model
+     * @param definition
+     */
+    setModel(model: T, definition: Definition);
+
+    /**
+     * Get record by code
+     * @param code
+     */
     getByCode(code: string): Promise<any>;
+
+    /**
+     * Rename a record
+     * @param code
+     * @param name
+     */
     rename(code: string, name: string): Promise<any>;
 }

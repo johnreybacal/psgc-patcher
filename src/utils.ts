@@ -9,13 +9,17 @@ export function getGeoLevel(code: string): GeoLevel {
     const provinceOffset = 4 + isTenOffset;
     const cityOffset = 6 + isTenOffset;
 
-    if (parseInt(code.substring(regionOffset)) === 0) {
+    function isZero(offset: number) {
+        return parseInt(code.substring(offset)) === 0;
+    }
+
+    if (isZero(regionOffset)) {
         return "region";
     }
-    if (parseInt(code.substring(provinceOffset)) === 0) {
+    if (isZero(provinceOffset)) {
         return "province";
     }
-    if (parseInt(code.substring(cityOffset)) === 0) {
+    if (isZero(cityOffset)) {
         return "city";
     }
     return "barangay";

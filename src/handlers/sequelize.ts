@@ -1,8 +1,8 @@
 import { ModelStatic } from "sequelize";
 import { Entry } from "../types";
-import { Callback } from "./callback";
 import { Definition } from "./definition";
-export class Sequelize implements Callback<ModelStatic<any>> {
+import { Handler } from "./handler";
+export class Sequelize implements Handler<ModelStatic<any>> {
     model: ModelStatic<any>;
     definition: Definition;
 

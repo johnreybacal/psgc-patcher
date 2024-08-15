@@ -1,23 +1,23 @@
 import * as actions from "./actions";
-import { Callback } from "./handlers/callback";
+import { Handler } from "./handlers/handler";
 import { Entry } from "./types";
 import { getGeoLevel } from "./utils";
 
 export class Patcher {
     private changes: Entry[];
-    private callback: Callback<any>;
+    private callback: Handler<any>;
     private callbacks: {
-        region: Callback<any>;
-        province: Callback<any>;
-        city: Callback<any>;
-        barangay: Callback<any>;
+        region: Handler<any>;
+        province: Handler<any>;
+        city: Handler<any>;
+        barangay: Handler<any>;
     };
     private isSingleTable: boolean;
 
     setChanges(changes: Entry[]) {
         this.changes = changes;
     }
-    setCallback(callback: Callback<any>) {
+    setCallback(callback: Handler<any>) {
         this.callback = callback;
     }
 

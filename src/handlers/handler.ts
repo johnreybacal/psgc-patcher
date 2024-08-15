@@ -1,7 +1,7 @@
 import { Entry } from "../types";
 import { Definition } from "./definition";
 
-export interface Callback<T> {
+export interface Handler<T> {
     /**
      * Model that interacts with the database
      */

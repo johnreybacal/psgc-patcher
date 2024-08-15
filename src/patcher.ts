@@ -1,5 +1,5 @@
 import * as actions from "./actions";
-import { Callback } from "./callbacks/callback";
+import { Callback } from "./handlers/callback";
 import { Entry } from "./types";
 import { getGeoLevel } from "./utils";
 

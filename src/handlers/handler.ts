@@ -35,4 +35,10 @@ export interface Handler<T> {
      * Create a record
      */
     create(entry: Entry): Promise<any>;
+
+    /**
+     * Delete a barangay
+     * @param code
+     */
+    deleteBarangay(code: string): Promise<any>;
 }

@@ -36,6 +36,8 @@ export class Patcher {
                 await callback.rename(change.oldCode, change.name);
             } else if (actions.create.includes(type)) {
                 await callback.create(change);
+            } else if (actions.deleteBarangay.includes(type)) {
+                await callback.deleteBarangay(change.oldCode);
             }
         }
     }

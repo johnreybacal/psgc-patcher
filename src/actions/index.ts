@@ -61,4 +61,6 @@ const create = [
     "Newly creted barangay",
 ];
 
-export { create, rename };
+const deleteBarangay = ["Deletion of barangay", "Deletion of Barangay"];
+
+export { create, deleteBarangay, rename };

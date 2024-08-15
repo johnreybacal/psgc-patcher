@@ -36,4 +36,12 @@ export class Sequelize implements Handler<ModelStatic<any>> {
             [this.definition.name]: entry.name,
         });
     }
+
+    async deleteBarangay(code: string) {
+        return await this.model.destroy({
+            where: {
+                [this.definition.code]: code,
+            },
+        });
+    }
 }

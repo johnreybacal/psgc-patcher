@@ -1,4 +1,5 @@
 import { ModelStatic } from "sequelize";
+import { Entry } from "../types";
 import { Callback } from "./callback";
 import { Definition } from "./definition";
 export class Sequelize implements Callback<ModelStatic<any>> {
@@ -27,5 +28,12 @@ export class Sequelize implements Callback<ModelStatic<any>> {
                 },
             }
         );
+    }
+
+    async create(entry: Entry) {
+        return await this.model.create({
+            [this.definition.code]: entry.newCode,
+            [this.definition.name]: entry.name,
+        });
     }
 }

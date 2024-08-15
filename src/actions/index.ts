@@ -45,6 +45,20 @@ const rename = [
     "Renaming",
     "Renaming of barangays",
     "Renaming of municipality",
+    "Correction of name",
+    "Correction of Name",
 ];
 
-export { rename };
+const create = [
+    "New city",
+    "New City",
+    "New province",
+    "New region",
+    "Newly created barangay",
+    "Newly created municipality",
+    "Newly created province",
+    "Newly created region",
+    "Newly creted barangay",
+];
+
+export { create, rename };

@@ -21,8 +21,11 @@ export class Patcher {
             throw Error("Callback is not defined");
         }
         for await (const change of this.changes) {
-            if (actions.rename.includes(change.type)) {
+            const type = change.type;
+            if (actions.rename.includes(type)) {
                 await this.callback.rename(change.oldCode, change.name);
+            } else if (actions.create.includes(type)) {
+                await this.callback.create(change);
             }
         }
     }

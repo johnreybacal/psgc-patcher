@@ -1,3 +1,4 @@
+import { Entry } from "../types";
 import { Definition } from "./definition";
 
 export interface Callback<T> {
@@ -29,4 +30,9 @@ export interface Callback<T> {
      * @param name
      */
     rename(code: string, name: string): Promise<any>;
+
+    /**
+     * Create a record
+     */
+    create(entry: Entry): Promise<any>;
 }

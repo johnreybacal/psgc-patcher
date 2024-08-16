@@ -44,4 +44,25 @@ export class Sequelize implements Handler<ModelStatic<any>> {
             },
         });
     }
+
+    async transfer(code: string, oldCode: string): Promise<any> {
+        return await this.model.update(
+            {
+                [this.definition.code]: code,
+            },
+            {
+                where: {
+                    [this.definition.code]: oldCode,
+                },
+            }
+        );
+    }
+
+    async transferMunicipalityBarangay(
+        code: string,
+        oldCode: string
+    ): Promise<any> {
+        // TODO: implement
+        throw new Error("Method not implemented.");
+    }
 }

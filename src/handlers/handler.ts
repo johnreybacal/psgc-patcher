@@ -41,4 +41,18 @@ export interface Handler<T> {
      * @param code
      */
     deleteBarangay(code: string): Promise<any>;
+
+    /**
+     * Transfer a location
+     * @param code
+     * @param oldCode
+     */
+    transfer(code: string, oldCode: string): Promise<any>;
+
+    /**
+     * Transfer municipalities and its barangays
+     * @param code
+     * @param oldCode
+     */
+    transferMunicipalityBarangay(code: string, oldCode: string): Promise<any>;
 }

@@ -63,4 +63,25 @@ const create = [
 
 const deleteBarangay = ["Deletion of barangay", "Deletion of Barangay"];
 
-export { create, deleteBarangay, rename };
+const transfer = [
+    "Transfer of barangay",
+    "Transfer of city",
+    "Transfer of province",
+    "Transferred barangay",
+    "Transferred city",
+    "Transferred municipality",
+    "Transferred Municipality",
+    "Transferred municipality and its barangay",
+    "Transferred province",
+];
+
+const transferMunicipalityBarangay =
+    "Transferred municipality and its barangay";
+
+export {
+    create,
+    deleteBarangay,
+    rename,
+    transfer,
+    transferMunicipalityBarangay,
+};
